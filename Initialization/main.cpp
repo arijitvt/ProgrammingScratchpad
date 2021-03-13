@@ -33,6 +33,13 @@ class Student
       return *this;
     }
 
+    Student(const Student& s)
+    {
+      std::cout << "This is copy constructor" << std::endl;
+      d_name = s.getName(); 
+      d_class = s.getClass();
+    }
+
     const std::string& getName() const 
     {
       return d_name;
@@ -44,8 +51,7 @@ class Student
 };
 
 int main() {
-  std::map<std::string, int> container = {
-    {}
-  };
+
+
 
 }
