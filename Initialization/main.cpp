@@ -36,13 +36,17 @@ class Student
 
     Student(const Student& s)
     {
-      std::cout << "This is copy constructor" << std::endl;
+      std::cout << "This is copy constructor" 
+            << ", source name=" << s.getName()
+            << ", destination name=" << getName() << std::endl;
       d_name = s.getName(); 
       d_class = s.getClass();
     }
     Student (const Student&& s) 
     {
-      std::cout << "Move constructor" << std::endl;
+      std::cout << "This is move constructor" 
+            << ", source name=" << s.getName()
+            << ", destination name=" << getName() << std::endl;
     }
 
     const std::string& getName() const 
@@ -67,12 +71,30 @@ void fooByReference(const Student& s)
 
 
 int main() {
-  Student s = Student {"Arijit", 1};
-  fooByValue(s); // Calls the copy constructor
-  fooByReference(s);  
+  Student s {"Arijit", 1};
+  std::cout << "Object construction is done" << std::endl;
 
-  std::vector<Student> studentList = {
-    std::move(Student("Rajni",2))
-  };
+  std::cout << "Equal operator overload"<< std::endl;
+  Student s1;
+  s1 = Student{"Rajni", 2}; // = operator
+  std::cout << "Equal operator overload is Done." << std::endl;
+
+  std::cout <<"Pass by value" << std::endl;
+  fooByValue(s); // Calls the copy constructor
+  std::cout << "Pass by value is Done" << std::endl;
+
+  std::cout << "Pass by reference." << std::endl;
+  fooByReference(s);  // Pass by reference
+  std::cout <<"Pass by reference is Done." <<std::endl;
+
+  std::cout << "Initializer list in vector"<< std::endl;
+  std::vector<Student> studentList {Student{"Urbi",3}};
+
+  for(const auto& s : studentList) {
+    std::cout << "From " << __func__ << " " << s.getName() << std::endl;
+  }
+  std::cout << "Initializer list is Done" << std::endl;
+
+
   return 0;
 }
