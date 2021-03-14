@@ -88,11 +88,16 @@ int main() {
   std::cout <<"Pass by reference is Done." <<std::endl;
 
   std::cout << "Initializer list in vector"<< std::endl;
-  std::vector<Student> studentList {Student{"Urbi",3}};
-
-  for(const auto& s : studentList) {
-    std::cout << "From " << __func__ << " " << s.getName() << std::endl;
-  }
+  std::vector<Student> studentList;
+  std::cout << "-> Capacity=" << studentList.capacity() <<":size="<< studentList.size() << std::endl;
+  std::cout << "-> Vector creation done" << std::endl;
+  std::cout << "-> Move operation"<< std::endl;
+  studentList.push_back({std::move(Student{"Urbi",3})}); // calls the move constructor
+  std::cout << "-> Move operation is DONE."<< std::endl;
+  std::cout << "-> Copy operation"<< std::endl;
+  studentList.push_back(Student{"Tuktuk",3}); // calls the move constructor
+  std::cout << "-> Copy operation is DONE."<< std::endl;
+  std::cout << "-> Vector  population is done" << std::endl;
   std::cout << "Initializer list is Done" << std::endl;
 
 
